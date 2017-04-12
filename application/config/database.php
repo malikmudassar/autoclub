@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'test',
+	'hostname' => 'localhost',//192.185.135.68
+	'username' => 'root', //quranaca_letyou
+	'password' => '',//Letyoujoin123
+	'database' => 'letyoujoin',//quranaca_letyoujoin
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
