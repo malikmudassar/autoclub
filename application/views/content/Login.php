@@ -1,17 +1,22 @@
 <div class="login-page">
-    <div class="form">
-        <form class="register-form">
-            <input type="text" placeholder="name"/>
-            <input type="password" placeholder="password"/>
-            <input type="text" placeholder="email address"/>
-            <button>create</button>
-            <p class="message">Already registered? <a href="#">Sign In</a></p>
-        </form>
-        <form class="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <button>login</button>
-            <p class="message">Not registered? <a href="<?php echo base_url().'Join'?>">Join for account</a></p>
+    <div class="form" style="text-align: start">
+        <form action="" method="post" >
+            <?php if(isset($errors)){?>
+                <div class="alert alert-danger">
+                    <?php print_r($errors);?>
+                </div>
+            <?php }?>
+            <div class="form-group">
+                <label >Email</label>
+                <input type="email" class="form-control" name="email"/>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password"/>
+            </div>
+            <div class="form-group">
+                <button type="submit"> Login </button>
+            </div>
         </form>
     </div>
 </div>

@@ -6,7 +6,7 @@ class Login extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('');
+        $this->load->model('Login_model');
         $this->load->library('form_validation');
     }
     public function index()
@@ -35,10 +35,18 @@ class Login extends CI_Controller {
             }
             else
             {
-                $user=$this->Join_model->checkUser($this->security->xss_clean($_POST));
+                $post=$this->security->xss_clean($_POST);
+                $user=$this->Login_model->checkUser($post);
                 if($user)
                 {
-                    redirect(base_url().'/'.$user['role']);
+                    $this->session->set_userdata($user);
+                    redirect(base_url().$user['role']);
+                }
+                else
+                {
+                    $data['errors']='Sorry! The credentials provided are not Correct. Please Contact Administrator';
+                    $this->load->view('static/head',$data);
+                    $this->load->view('content/Login');
                 }
             }
         }
