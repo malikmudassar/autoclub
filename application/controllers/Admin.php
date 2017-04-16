@@ -11,6 +11,7 @@ class Admin extends CI_Controller {
     }
     public function index()
     {
+        //echo '<pre>';print_r($this->session->userdata);exit;
         if($this->isLoggedIn())
         {
             $data['menu']=$this->Admin_model->getMenuItems();
@@ -200,7 +201,7 @@ class Admin extends CI_Controller {
 
     public function isLoggedIn()
     {
-        if(isset($this->session->userdata['id']) && isset($this->session->userdata['role'])=='admin')
+        if(isset($this->session->userdata['id']) && $this->session->userdata['role']=='admin')
         {
             return true;
         }

@@ -10,10 +10,14 @@
 <script src="<?php echo base_url()?>assets/js/elephant.minf9e3.js"></script>
 <script src="<?php echo base_url()?>assets/js/application.minf9e3.js"></script>
 <script src="<?php echo base_url()?>assets/js/demo.minf9e3.js"></script>
+<script src="<?php echo base_url()?>assets/js/demo.minf9e3.js"></script>
+<script src="<?php echo base_url()?>assets/js/profile.minf9e3.js"></script>
+<script src="<?php echo base_url()?>assets/js/compose.minf9e3.js"></script>
+
 
 </body>
 
-<!-- Mirrored from demo.naksoid.com/elephant/flaming-red/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 03 Nov 2016 14:01:15 GMT -->
+
 </html>
 <script>
     /*var time = new Date().getTime();

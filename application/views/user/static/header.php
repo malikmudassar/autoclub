@@ -62,7 +62,7 @@
                         $controller=$this->uri->segment(1);
                         ?>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="<?php echo base_url().$controller.'/edit_profile'?>">Profile</a></li>
+                            <li><a href="<?php echo base_url().$controller.'/profile'?>">Profile</a></li>
                             <li class="divider"></li>
                             <li><a href="#">Settings</a></li>
                             <li><a href="<?php echo base_url().$controller.'/logout'?>">Sign out</a></li>

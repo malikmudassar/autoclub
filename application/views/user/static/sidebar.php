@@ -25,6 +25,7 @@
                         <ul class="sidenav-subnav collapse">
                             <li class="sidenav-subheading">Admin Menu</li>
                             <li><a href="<?php echo base_url().'user/picture'?>" >My Picture</a></li>
+                            <li><a href="<?php echo base_url().'user/header'?>" >My Header</a></li>
                             <li><a href="<?php echo base_url().'user/about'?>" >About me</a></li>
                             <li><a href="<?php echo base_url().'user/education'?>" >My Education</a></li>
                             <li><a href="<?php echo base_url().'user/experience'?>" >My Experience</a></li>

@@ -17,4 +17,7 @@
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/elephant.minf9e3.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/application.minf9e3.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/sweetalert.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/profile.minf9e3.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/compose.minf9e3.css">
+
 </head>
