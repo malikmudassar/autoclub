@@ -11,58 +11,66 @@ class Login extends CI_Controller {
     }
     public function index()
     {
-        $data['title']='Getting Bored | Lets make some money';
-        if($_POST)
+        if(!$this->isLoggedIn())
         {
-            $config=array(
-                array(
-                    'field' => 'email',
-                    'label' => 'Email',
-                    'rules' => 'trim|required',
-                ),
-                array(
-                    'field' => 'password',
-                    'label' => 'Password',
-                    'rules' => 'trim|required',
-                ),
-            );
-            $this->form_validation->set_rules($config);
-            if($this->form_validation->run()==false)
+            $data['title']='Getting Bored | Lets make some money';
+            if($_POST)
             {
-                $data['errors']=validation_errors();
-                $this->load->view('static/head',$data);
-                $this->load->view('content/Login');
-            }
-            else
-            {
-                $post=$this->security->xss_clean($_POST);
-                $user=$this->Login_model->checkUser($post);
-                if($user)
+                $config=array(
+                    array(
+                        'field' => 'email',
+                        'label' => 'Email',
+                        'rules' => 'trim|required',
+                    ),
+                    array(
+                        'field' => 'password',
+                        'label' => 'Password',
+                        'rules' => 'trim|required',
+                    ),
+                );
+                $this->form_validation->set_rules($config);
+                if($this->form_validation->run()==false)
                 {
-                    $this->session->set_userdata($user);
-                    redirect(base_url().$user['role']);
-                }
-                else
-                {
-                    $data['errors']='Sorry! The credentials provided are not Correct. Please Contact Administrator';
+                    $data['errors']=validation_errors();
                     $this->load->view('static/head',$data);
                     $this->load->view('content/Login');
                 }
+                else
+                {
+                    $post=$this->security->xss_clean($_POST);
+                    $user=$this->Login_model->checkUser($post);
+                    if($user)
+                    {
+                        $this->session->set_userdata($user);
+                        redirect(base_url().$user['role']);
+                    }
+                    else
+                    {
+                        $data['errors']='Sorry! The credentials provided are not Correct. Please Contact Administrator';
+                        $this->load->view('static/head',$data);
+                        $this->load->view('content/Login');
+                    }
+                }
+            }
+            else
+            {
+                $this->load->view('static/head',$data);
+                $this->load->view('content/Login');
             }
         }
         else
         {
-            $this->load->view('static/head',$data);
-            $this->load->view('content/Login');
+            redirect(base_url().$this->session->userdata['role']);
         }
+
 
     }
 
     public function isLoggedIn()
     {
-        if(isset($this->session->userdata['id']) && isset($this->session->userdata['role'])=='user')
+        if(isset($this->session->userdata['id']) && isset($this->session->userdata['role']))
         {
-            return true;
+            return $this->session->userdata['role'];
         }
         else
         {

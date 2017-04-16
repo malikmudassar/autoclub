@@ -4,7 +4,7 @@
             <?php for($i=0;$i<6;$i++){?>
             <div class="col-md-4 col-sm-12 col-lg-4 img-thumb" >
                 <img src="<?php echo base_url().'images/t_img'.($i+1)?>.jpg" style="width: 350px; height: 238px;">
-                
+
             </div>
             <?php }?>
         </div>
