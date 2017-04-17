@@ -33,9 +33,9 @@
                 <?php }?>
                 <div class="login-form">
                     <?php if(isset($error)){echo $error;}?>
-                    <?php echo form_open_multipart('team/do_upload');?>
+                    <?php echo form_open_multipart('User/do_upload');?>
                     <div class="form-group">
-                        <img style="cursor:pointer" src="<?php if(isset($pic['image'])){ echo(base_url()) ?>uploads/<?php echo $pic['image'];  }else{ echo(base_url()) ?>assets/img/no-image.jpg <?php } ?>" width="150px" height="120px" onClick="show(1)" id="imgshow1" />
+                        <img style="cursor:pointer" src="<?php if(isset($pic->image)){ echo(base_url()) ?>uploads/<?php echo ($pic->image);  }else{ echo(base_url()) ?>assets/img/no-image.jpg <?php } ?>" width="150px" height="120px" onClick="show(1)" id="imgshow1" />
                         <div class="ads_image ad_pic1">
                             <input type="file" style="display:none" id="uploadImage1" name="userfile1" multiple onChange="previewImage(1)"/>
                         </div>

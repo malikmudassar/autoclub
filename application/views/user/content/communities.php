@@ -23,10 +23,15 @@
 <div class="layout-content">
     <div class="layout-content-body">
         <div class="compose">
+            <?php if(isset($success)){?>
+                <div class="alert alert-success">
+                    <?php print_r($success);?>
+                </div>
+            <?php }?>
             <form action="" method="post">
                 <div class="form-group">
                     <label>My Communities</label>
-                    <textarea id="mytextarea" name="communities"></textarea>
+                    <textarea id="mytextarea" name="communities"><?php if(isset($communities)){ echo $communities->communities;}?></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Update</button>

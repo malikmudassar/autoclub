@@ -36,6 +36,7 @@ class User extends CI_Controller {
         {
 
             $data['title']='Dashboard | Let you Join';
+            $data['pic']=$this->User_model->getUserImage($this->session->userdata['id']);
             $this->load->view('user/static/head',$data);
             $this->load->view('user/static/header');
             $this->load->view('user/static/sidebar');
@@ -47,17 +48,70 @@ class User extends CI_Controller {
             redirect(base_url().'Login');
         }
     }
+    public function do_upload()
+    {
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 500;
+        $config['max_width']            = 1024;
+        $config['max_height']           = 768;
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('userfile1'))
+        {
+            $data['errors'] = $this->upload->display_errors();
+            $data['title']='Dashboard | Let you Join';
+            $data['pic']=$this->User_model->getUserImage($this->session->userdata['id']);
+            $this->load->view('user/static/head',$data);
+            $this->load->view('user/static/header');
+            $this->load->view('user/static/sidebar');
+            $this->load->view('user/content/picture');
+            $this->load->view('user/static/footer');
+        }
+        else
+        {
+            $upload_data = $this->upload->data();
+            $file_name=$upload_data['file_name'];
+            $this->User_model->updateUserImage($file_name,$this->session->userdata['id']);
+            $data['success']='Congratulations! Image Updated Successfully';
+            $data['title']='Dashboard | Let you Join';
+            $data['pic']=$this->User_model->getUserImage($this->session->userdata['id']);
+            $this->load->view('user/static/head',$data);
+            $this->load->view('user/static/header');
+            $this->load->view('user/static/sidebar');
+            $this->load->view('user/content/picture');
+            $this->load->view('user/static/footer');
+        }
+    }
     public function header()
     {
         if($this->isLoggedIn())
         {
+            $data['header']=$this->User_model->getRow('user_header',$this->session->userdata['id']);
+            //echo '<pre>';echo $data['header']->image;exit;
+            if($_POST)
+            {
+                $this->User_model->updateHeader($_POST,$this->session->userdata['id']);
+                $data['success']='Record Successfully Updated';
+                $data['header']=$this->User_model->getRow('user_header',$this->session->userdata['id']);
+                $data['title']='Dashboard | Let you Join';
 
-            $data['title']='Dashboard | Let you Join';
-            $this->load->view('user/static/head',$data);
-            $this->load->view('user/static/header');
-            $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/header');
-            $this->load->view('user/static/footer');
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/header');
+                $this->load->view('user/static/footer');
+            }
+            else
+            {
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/header');
+                $this->load->view('user/static/footer');
+            }
         }
         else
         {
@@ -68,13 +122,28 @@ class User extends CI_Controller {
     {
         if($this->isLoggedIn())
         {
-
-            $data['title']='Dashboard | Let you Join';
-            $this->load->view('user/static/head',$data);
-            $this->load->view('user/static/header');
-            $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/about');
-            $this->load->view('user/static/footer');
+            $data['about']=$this->User_model->getRow('user_about',$this->session->userdata['id']);
+            if($_POST)
+            {
+                $this->User_model->update('user_about',$_POST,$this->session->userdata['id']);
+                $data['success']='Record Successfully Updated';
+                $data['about']=$this->User_model->getRow('user_about',$this->session->userdata['id']);
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/about');
+                $this->load->view('user/static/footer');
+            }
+            else
+            {
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/about');
+                $this->load->view('user/static/footer');
+            }
         }
         else
         {
@@ -85,13 +154,28 @@ class User extends CI_Controller {
     {
         if($this->isLoggedIn())
         {
-
-            $data['title']='Dashboard | Let you Join';
-            $this->load->view('user/static/head',$data);
-            $this->load->view('user/static/header');
-            $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/education');
-            $this->load->view('user/static/footer');
+            $data['education']=$this->User_model->getRow('user_education',$this->session->userdata['id']);
+            if($_POST)
+            {
+                $this->User_model->update('user_education',$_POST,$this->session->userdata['id']);
+                $data['success']='Record Successfully Updated';
+                $data['education']=$this->User_model->getRow('user_education',$this->session->userdata['id']);
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/education');
+                $this->load->view('user/static/footer');
+            }
+            else
+            {
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/education');
+                $this->load->view('user/static/footer');
+            }
         }
         else
         {
@@ -102,16 +186,28 @@ class User extends CI_Controller {
     {
         if($this->isLoggedIn())
         {
+            $data['experience']=$this->User_model->getRow('user_experience',$this->session->userdata['id']);
             if($_POST)
             {
-                echo '<pre>';print_r($_POST);exit;
+                $this->User_model->update('user_experience',$_POST,$this->session->userdata['id']);
+                $data['success']='Record Successfully Updated';
+                $data['experience']=$this->User_model->getRow('user_experience',$this->session->userdata['id']);
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/experience');
+                $this->load->view('user/static/footer');
             }
-            $data['title']='Dashboard | Let you Join';
-            $this->load->view('user/static/head',$data);
-            $this->load->view('user/static/header');
-            $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/experience');
-            $this->load->view('user/static/footer');
+            else
+            {
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/experience');
+                $this->load->view('user/static/footer');
+            }
         }
         else
         {
@@ -122,13 +218,28 @@ class User extends CI_Controller {
     {
         if($this->isLoggedIn())
         {
-
-            $data['title']='Dashboard | Let you Join';
-            $this->load->view('user/static/head',$data);
-            $this->load->view('user/static/header');
-            $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/awards');
-            $this->load->view('user/static/footer');
+            $data['awards']=$this->User_model->getRow('user_awards',$this->session->userdata['id']);
+            if($_POST)
+            {
+                $this->User_model->update('user_awards',$_POST,$this->session->userdata['id']);
+                $data['success']='Record Successfully Updated';
+                $data['awards']=$this->User_model->getRow('user_awards',$this->session->userdata['id']);
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/awards');
+                $this->load->view('user/static/footer');
+            }
+            else
+            {
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/awards');
+                $this->load->view('user/static/footer');
+            }
         }
         else
         {
@@ -139,13 +250,28 @@ class User extends CI_Controller {
     {
         if($this->isLoggedIn())
         {
-
-            $data['title']='Dashboard | Let you Join';
-            $this->load->view('user/static/head',$data);
-            $this->load->view('user/static/header');
-            $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/communities');
-            $this->load->view('user/static/footer');
+            $data['communities']=$this->User_model->getRow('user_communities',$this->session->userdata['id']);
+            if($_POST)
+            {
+                $this->User_model->update('user_communities',$_POST,$this->session->userdata['id']);
+                $data['success']='Record Successfully Updated';
+                $data['communities']=$this->User_model->getRow('user_communities',$this->session->userdata['id']);
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/communities');
+                $this->load->view('user/static/footer');
+            }
+            else
+            {
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/communities');
+                $this->load->view('user/static/footer');
+            }
         }
         else
         {
@@ -156,13 +282,28 @@ class User extends CI_Controller {
     {
         if($this->isLoggedIn())
         {
-
-            $data['title']='Dashboard | Let you Join';
-            $this->load->view('user/static/head',$data);
-            $this->load->view('user/static/header');
-            $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/hobbies');
-            $this->load->view('user/static/footer');
+            $data['hobbies']=$this->User_model->getRow('user_hobbies',$this->session->userdata['id']);
+            if($_POST)
+            {
+                $this->User_model->update('user_hobbies',$_POST,$this->session->userdata['id']);
+                $data['success']='Record Successfully Updated';
+                $data['hobbies']=$this->User_model->getRow('user_hobbies',$this->session->userdata['id']);
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/hobbies');
+                $this->load->view('user/static/footer');
+            }
+            else
+            {
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/hobbies');
+                $this->load->view('user/static/footer');
+            }
         }
         else
         {
@@ -173,13 +314,28 @@ class User extends CI_Controller {
     {
         if($this->isLoggedIn())
         {
-
-            $data['title']='Dashboard | Let you Join';
-            $this->load->view('user/static/head',$data);
-            $this->load->view('user/static/header');
-            $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/passion');
-            $this->load->view('user/static/footer');
+            $data['passions']=$this->User_model->getRow('user_passions',$this->session->userdata['id']);
+            if($_POST)
+            {
+                $this->User_model->update('user_passions',$_POST,$this->session->userdata['id']);
+                $data['success']='Record Successfully Updated';
+                $data['passions']=$this->User_model->getRow('user_passions',$this->session->userdata['id']);
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/passion');
+                $this->load->view('user/static/footer');
+            }
+            else
+            {
+                $data['title']='Dashboard | Let you Join';
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/passion');
+                $this->load->view('user/static/footer');
+            }
         }
         else
         {
