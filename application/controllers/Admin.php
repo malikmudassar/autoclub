@@ -199,6 +199,82 @@ class Admin extends CI_Controller {
     ///                                 ///
     ///////////////////////////////////////
 
+    ///////////////////////////////////////
+    /////   USER SECTION STARTS         ///
+    ///////////////////////////////////////
+    public function new_users()
+    {
+        if($this->isLoggedIn())
+        {
+            $data['menu']=$this->Admin_model->getMenuItems();
+            $data['users']=$this->Admin_model->getNewUsers();
+            $data['title']='Admin Panel | Let you Join';
+            $this->load->view('admin/static/head',$data);
+            $this->load->view('admin/static/header');
+            $this->load->view('admin/static/sidebar');
+            $this->load->view('admin/content/new_users');
+            $this->load->view('admin/static/footer');
+        }
+        else
+        {
+            redirect(base_url().'Login');
+        }
+    }
+
+    public function manage_users()
+    {
+        if($this->isLoggedIn())
+        {
+            $data['menu']=$this->Admin_model->getMenuItems();
+            $data['users']=$this->Admin_model->getOldUsers();
+            $data['title']='Admin Panel | Let you Join';
+            $this->load->view('admin/static/head',$data);
+            $this->load->view('admin/static/header');
+            $this->load->view('admin/static/sidebar');
+            $this->load->view('admin/content/manage_users');
+            $this->load->view('admin/static/footer');
+        }
+        else
+        {
+            redirect(base_url().'Login');
+        }
+    }
+
+    public function approveUser()
+    {
+        if($this->isLoggedIn())
+        {
+           $id=$this->uri->segment(3);
+            $this->Admin_model->approveUser($id);
+            redirect(base_url().'Admin/manage_users');
+        }
+        else
+        {
+            redirect(base_url().'Login');
+        }
+    }
+
+    public function suspendUser()
+    {
+        if($this->isLoggedIn())
+        {
+            $data['menu']=$this->Admin_model->getMenuItems();
+
+            $data['title']='Admin Panel | Let you Join';
+            $this->load->view('admin/static/head',$data);
+            $this->load->view('admin/static/header');
+            $this->load->view('admin/static/sidebar');
+            $this->load->view('admin/content/dashboard');
+            $this->load->view('admin/static/footer');
+        }
+        else
+        {
+            redirect(base_url().'Login');
+        }
+    }
+    ///////////////////////////////////////
+    /////   USER SECTION ENDS           ///
+    ///////////////////////////////////////
     public function isLoggedIn()
     {
         if(isset($this->session->userdata['id']) && $this->session->userdata['role']=='admin')

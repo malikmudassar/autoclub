@@ -94,5 +94,20 @@ class Admin_model extends CI_Model {
     ///                                 ///
     ///////////////////////////////////////
 
+    public function getNewUsers()
+    {
+        return $this->db->select('*')->from('users')->WHERE('status','pending')->get()->result_array();
+    }
+    public function getOldUsers()
+    {
+        return $this->db->select('*')->from('users')->WHERE('status','approved')->get()->result_array();
+    }
+    public function approveUser($id)
+    {
+        $status=array(
+            'status'=>'approved'
+        );
+        $this->db->WHERE('id',$id)->UPDATE('users',$status);
+    }
 
 }

@@ -8,6 +8,11 @@
             </h1>
 
         </div>
+        <div class="col-md-12" style="padding: 20px; background-color: lightcyan; margin-bottom: 20px;">
+            <h4>Public Profile</h4>
+            <?php $URL=base_url().'Profile/show/'.$this->session->userdata['id'].'/'.implode('-',explode(' ',preg_replace('/[^ \w]+/','',$this->session->userdata['name'])));?>
+            <span><a href="<?php echo $URL?>"><?php echo $URL?></a> </span>
+        </div>
         <div class="row gutter-xs">
             <div class="col-md-6 col-lg-3 col-lg-push-0">
                 <div class="card bg-primary">

@@ -31,7 +31,7 @@
             <form action="" method="post">
                 <div class="form-group">
                     <label>My Passion</label>
-                    <textarea id="mytextarea" name="passion"><?php if(isset($passions)){ echo $passions->passions;}?></textarea>
+                    <textarea id="mytextarea" name="passions"><?php if(isset($passions)){ echo $passions->passions;}?></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Update</button>

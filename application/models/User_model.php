@@ -71,6 +71,93 @@ class User_model extends CI_Model {
         }
     }
 
+    public function getUserById($id)
+    {
+        $st=$this->db->select('*')->from('users')->WHERE('id',$id)->get()->result_array();
+        $data['user']=$st[0];
+        $st=$this->db->select('image')->from('user_images')->WHERE('user_id',$id)->get()->row();
+        if(!empty($st))
+        {
+            $data['image']=$st->image;
+        }
+        else
+        {
+            $data['image']=array();
+        }
+
+        $st=$this->db->select('image')->from('user_header')->WHERE('user_id',$id)->get()->row();
+        if(!empty($st))
+        {
+            $data['header']=$st->image;
+        }
+        else
+        {
+            $data['header']=array();
+        }
+
+        $st=$this->db->select('about')->from('user_about')->WHERE('user_id',$id)->get()->row();
+        if(!empty($st))
+        {
+            $data['about']=$st->about;
+        }
+        else
+        {
+            $data['about']=array();
+        }
+
+        $st=$this->db->select('education')->from('user_education')->WHERE('user_id',$id)->get()->row();
+        if(!empty($st))
+        {
+            $data['education']=$st->education;
+        }
+        else
+        {
+            $data['education']=array();
+        }
+
+        $st=$this->db->select('experience')->from('user_experience')->WHERE('user_id',$id)->get()->row();
+        if(!empty($st))
+        {
+            $data['experience']=$st->experience;
+        }
+        else
+        {
+            $data['experience']=array();
+        }
+
+        $st=$this->db->select('communities')->from('user_communities')->WHERE('user_id',$id)->get()->row();
+        if(!empty($st))
+        {
+            $data['communities']=$st->communities;
+        }
+        else
+        {
+            $data['communities']=array();
+        }
+
+        $st=$this->db->select('hobbies')->from('user_hobbies')->WHERE('user_id',$id)->get()->row();
+        if(!empty($st))
+        {
+            $data['hobbies']=$st->hobbies;
+        }
+        else
+        {
+            $data['hobbies']=array();
+        }
+
+        $st=$this->db->select('passions')->from('user_passions')->WHERE('user_id',$id)->get()->row();
+        if(!empty($st))
+        {
+            $data['passions']=$st->passions;
+        }
+        else
+        {
+            $data['passions']=array();
+        }
+
+        return $data;
+    }
+
     public function getRow($table,$id)
     {
         return $this->db->SELECT('*')->from($table)->WHERE('user_id',$id)->get()->row();
