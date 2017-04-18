@@ -45,12 +45,21 @@ class Join extends CI_Controller {
                     $this->load->view('content/success');
                     $this->load->view('static/footer');
                 }
+                else
+                {
+                    $data['errors']='Sorry! The Refer ID you have provided does\'nt belong to our System';
+                    $this->load->view('static/head',$data);
+                    $this->load->view('static/nav');
+                    $this->load->view('content/join');
+                    $this->load->view('static/footer');
+                }
             }
         }
         else
         {
             $this->load->view('static/head',$data);
             $this->load->view('static/nav');
+            $this->load->view('static/nav_parallex');
             $this->load->view('content/join');
             $this->load->view('static/footer');
         }

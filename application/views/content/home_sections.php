@@ -1,20 +1,3 @@
-
-<!------------ Video section ------------>
-<section id="video-sec" class="parallax">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-offset-2 col-md-8 col-sm-12">
-                <h2 class="wow fadeInUp" data-wow-delay="0.5s">Watch the video<small>All journeys have secret destinations of which the traveler is unaware.</small></h2>
-                <a class="popup-youtube" href="https://www.youtube.com/watch?v=AQ6GmpMu5L8" ><i class="fa fa-play"></i></a>
-                <small><em>Video by: Paris Vacation Travel Guide | Expedia</em></small>
-            </div>
-
-        </div>
-    </div>
-</section>
-
 <!------------ Menu section ------------>
 <section id="location" class="parallax">
     <div class="container">

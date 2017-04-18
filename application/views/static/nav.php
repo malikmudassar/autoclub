@@ -14,7 +14,6 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?php echo base_url()?>#banner">Home</a></li>
-                <li><a href="<?php echo base_url()?>#video-sec">Video</a></li>
                 <li><a href="<?php echo base_url()?>#location">Members</a></li>
                 <li><a href="<?php echo base_url().'Join'?>">Join</a></li>
                 <li><a href="<?php echo base_url().'Login'?>">Login</a></li>

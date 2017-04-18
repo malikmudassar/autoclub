@@ -24,9 +24,9 @@
                       </span>
                             </div>
                             <div class="media-middle media-body">
-                                <h6 class="media-heading">Visitors</h6>
+                                <h6 class="media-heading">My Referal ID</h6>
                                 <h3 class="media-heading">
-                                    <span class="fw-l">1,031,760</span>
+                                    <span class="fw-l"><?php echo $this->session->userdata['referal_id']?></span>
                                 </h3>
                             </div>
                         </div>

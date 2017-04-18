@@ -14,17 +14,25 @@ class Join_model extends CI_Model {
 
     public function insertUser($data)
     {
-        $user=array(
-          'email' => $data['email'],
-          'password' => sha1(md5($data['password'])),
-          'name' => $data['name'],
-          'phone' => $data['phone'],
-          'refer_id' => $data['refer_id'],
-          'referal_id' => substr(md5(sha1($data['refer_id'])),0,9)
-        );
+        $row=$this->db->select('*')->from('users')->WHERE('referal_id',$data['refer_id'])->get()->row();
+        if(!empty($row)){
+            $user=array(
+                'email' => $data['email'],
+                'password' => sha1(md5($data['password'])),
+                'name' => $data['name'],
+                'phone' => $data['phone'],
+                'refer_id' => $data['refer_id'],
+                'referal_id' => substr(md5(sha1($data['refer_id'])),0,9)
+            );
 
-        $this->db->insert('users',$user);
-        return $this->db->insert_id();
+            $this->db->insert('users',$user);
+            return $this->db->insert_id();
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
 }
