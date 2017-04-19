@@ -2,13 +2,11 @@
 <section id="location" class="parallax">
     <div class="container">
         <div class="row">
-
             <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10">
                 <div class="wow fadeInUp section-title" data-wow-delay="1s">
                     <h2>Recently Joined <small>Following are the members who just Landed. Lets give them a warm welcome</small></h2>
                 </div>
             </div>
-
             <div class="col-md-6 col-sm-12">
                 <div class="media wow fadeInUp" data-wow-delay="0.5s">
                     <div class="media-object pull-left">
@@ -20,7 +18,6 @@
                         <a href="#" class="btn btn-capsul btn-transparent-prime">Send Message</a>
                     </div>
                 </div>
-
                 <div class="media wow fadeInUp" data-wow-delay="0.9s">
                     <div class="media-object pull-left">
                         <img src="images/location-02.jpg" class="img-responsive" alt="Food Menu">
@@ -31,9 +28,7 @@
                         <a href="#" class="btn btn-capsul btn-transparent-prime">Send Message</a>
                     </div>
                 </div>
-
             </div>
-
             <div class="col-md-6 col-sm-12">
                 <div class="media wow fadeInUp" data-wow-delay="0.5s">
                     <div class="media-object pull-left">
