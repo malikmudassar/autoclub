@@ -102,12 +102,61 @@ class Admin_model extends CI_Model {
     {
         return $this->db->select('*')->from('users')->WHERE('status','approved')->get()->result_array();
     }
+
     public function approveUser($id)
     {
+        // Approve User
+
         $status=array(
             'status'=>'approved'
         );
         $this->db->WHERE('id',$id)->UPDATE('users',$status);
+
+        // Create User Vault
+
+        $vault=array(
+            'user_id' => $id
+        );
+        $this->db->insert('user_vault',$vault);
+
+        // Add payment to company vault
+
+        $this->db->query('UPDATE company_vault SET company_vault.value=company_vault.value+1250');
+        $i=0;$level=0;
+
+        // Get the levels to send commission to above chain
+        do
+        {
+            $st=$this->db->query('SELECT parent from referentials WHERE referentials.user_id='.$id);
+            $d=$st->result_array();
+            if(count($d)>0){
+                $parent=$d[0]['parent'];
+                $chain[$i]['parent']=$parent;
+                $level++;
+                $chain[$i]['level']=$level;
+                $i++;
+            }
+            else
+            {
+                break;
+            }
+        }while($parent!=0);
+
+        // Loop through the chain to send commission up
+
+        for($i=0;$i<count($chain);$i++)
+        {
+            $st=$this->db->query('SELECT rate from level_rates WHERE level='.$chain[$i]['level']); // Get level rates
+            $d=$st->result_array();
+            $rate=$d[0]['rate'];
+            if($chain[$i]['parent']!=0)
+            {
+                $amount=intval(($rate/100)*1000);
+                $this->db->query('UPDATE company_vault SET company_vault.value=company_vault.value-'.$amount);
+                $this->db->query('UPDATE user_vault SET user_vault.value=user_vault.value+'.$amount.' WHERE user_vault.user_id='.$chain[$i]['parent']);
+            }
+        }
     }
+
 
 }
