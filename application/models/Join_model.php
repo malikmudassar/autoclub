@@ -26,7 +26,8 @@ class Join_model extends CI_Model {
             );
 
             $this->db->insert('users',$user);
-            return $this->db->insert_id();
+            $id=$this->db->insert_id();
+
         }
         else
         {

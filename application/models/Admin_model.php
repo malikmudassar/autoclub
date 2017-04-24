@@ -6,10 +6,10 @@
  * Time: 12:41 PM
  */
 class Admin_model extends CI_Model {
-
     function __construct()
     {
         parent::__construct();
+
     }
 
     public function insertUser($data)
@@ -119,44 +119,79 @@ class Admin_model extends CI_Model {
         );
         $this->db->insert('user_vault',$vault);
 
+        // Create Reference Relation
+
+        $child=$this->getUserByID($id);
+        $parent=$this->getUserIdByReferralId($child['refer_id']);
+
+        $relation=array(
+            'user_id'=>$child['id'],
+            'parent' => $parent
+        );
+        $this->db->insert('referentials',$relation);
         // Add payment to company vault
 
-        $this->db->query('UPDATE company_vault SET company_vault.value=company_vault.value+1250');
-        $i=0;$level=0;
-
+        $this->db->query('UPDATE company_vault SET company_vault.balance=company_vault.balance+1250');
         // Get the levels to send commission to above chain
-        do
+
+        /*do
         {
-            $st=$this->db->query('SELECT parent from referentials WHERE referentials.user_id='.$id);
-            $d=$st->result_array();
-            if(count($d)>0){
-                $parent=$d[0]['parent'];
-                $chain[$i]['parent']=$parent;
-                $level++;
-                $chain[$i]['level']=$level;
-                $i++;
-            }
-            else
-            {
-                break;
-            }
-        }while($parent!=0);
+            $row=$this->db->select('parent')->from('referentials')->where('user_id',$id)->get()->row();
+            $parent=$row->parent;
+            $chain[$i]['parent']=$parent;
+            $level++;
+            $chain[$i]['level']=$level;
+            $i++;
+        }while($parent!=0);*/
+        $i=0;$level=0;$chain=array();
+        $parent=$this->getParent($id);
+        while($parent>0)
+        {
+            $chain[$i]['parent']=$parent;
+            $level++;
+            $chain[$i]['level']=$level;
+            $i++;
+            $parent=$this->getParent($parent);
+            if($i==5){break;}
+        }
 
         // Loop through the chain to send commission up
 
-        for($i=0;$i<count($chain);$i++)
-        {
-            $st=$this->db->query('SELECT rate from level_rates WHERE level='.$chain[$i]['level']); // Get level rates
-            $d=$st->result_array();
-            $rate=$d[0]['rate'];
-            if($chain[$i]['parent']!=0)
+        if(!empty($chain)){
+            for($i=0;$i<count($chain);$i++)
             {
-                $amount=intval(($rate/100)*1000);
-                $this->db->query('UPDATE company_vault SET company_vault.value=company_vault.value-'.$amount);
-                $this->db->query('UPDATE user_vault SET user_vault.value=user_vault.value+'.$amount.' WHERE user_vault.user_id='.$chain[$i]['parent']);
+                $st=$this->db->query('SELECT rate from level_rates WHERE level='.$chain[$i]['level']); // Get level rates
+                $d=$st->result_array();
+                $rate=$d[0]['rate'];
+                if($chain[$i]['parent']!=0)
+                {
+                    $amount=intval(($rate/100)*1000);
+                    $this->db->query('UPDATE company_vault SET balance=balance-'.$amount);
+                    $this->db->query('UPDATE user_vault SET user_vault.value=user_vault.value+'.$amount.' WHERE user_vault.user_id='.$chain[$i]['parent']);
+                }
             }
         }
     }
 
+    public function getUserIdByReferralId($referral_id)
+    {
+        $row=$this->db->WHERE('referal_id',$referral_id)->get('users')->row();
+        return $row->id;
+    }
+    public function getUserByID($id)
+    {
+        $row=$this->db->WHERE('id',$id)->get('users')->result_array();
+        return $row[0];
+    }
 
+    public function getParent($id)
+    {
+        $row=$this->db->select('parent')->from('referentials')->Where('user_id',$id)->get()->row();
+        if(count($row)>0)
+        {
+            return $row->parent;
+        }
+    }
+
+    
 }
