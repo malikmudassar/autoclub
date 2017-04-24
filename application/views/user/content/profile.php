@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"  crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="js/jquery.min.js" type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
 
@@ -20,7 +19,7 @@
         class="image-profile"></div>
     <div class="jumbotron" style="margin-top: 0px; margin-left: 150px; margin-right:150px; opacity: 2.5;">
         <h2 class="hero"><?php echo $user['user']['name']?> </h2>
-        <p style="text-align: center; "><?php echo substr($user['about'],0,100);?></p>
+        <p style="text-align: center; "><?php if(!empty($user['about'])) {echo substr($user['about'],0,100);}?></p>
     </div>
 </div>
 <section id="experience" data-id="experience">
@@ -35,7 +34,7 @@
     <div class="container">
         <div style="box-shadow: 5px 5px 5px grey; background-color: orangered; color: #fff; text-shadow: 2px 2px 2px grey; padding: 1px;"><h2>Education</h2></div>
         <div class="col-md-12">
-            <?php echo $user['education']?>
+            <?php if(!empty($user['education'])){ echo $user['education'];}?>
         </div>
     </div>
 </section>
@@ -73,6 +72,16 @@
 </html>
 
 <style>
+    <?php
+        if(!isset($user['header']))
+            {
+                $user['header']='b_img1';
+            }
+        if(!isset($user['image']))
+        {
+            $user['image']='avatar.png';
+        }
+    ?>
     .slider {
         background: url("<?php echo base_url().'images/'.$user['header']?>.jpg") no-repeat center center fixed;
         background-size: cover;
