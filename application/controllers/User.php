@@ -15,6 +15,7 @@ class User extends CI_Controller {
         {
 
             $data['title']='Dashboard | Let you Join';
+            $data['earnings']=$this->User_model->getEarnings($this->session->userdata['id']);
             $this->load->view('user/static/head',$data);
             $this->load->view('user/static/header');
             $this->load->view('user/static/sidebar');

@@ -163,6 +163,12 @@ class User_model extends CI_Model {
         return $this->db->SELECT('*')->from($table)->WHERE('user_id',$id)->get()->row();
     }
 
+    public function getEarnings($id)
+    {
+        $row=$this->db->where('user_id',$id)->get('user_vault')->row();
+        return $row->value;
+    }
+
 
 
 }

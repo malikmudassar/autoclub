@@ -83,7 +83,7 @@
                             <div class="media-middle media-body">
                                 <h6 class="media-heading">Total Earnings</h6>
                                 <h3 class="media-heading">
-                                    <span class="fw-l">$155,352.47</span>
+                                    <span class="fw-l">Rs. <?php echo $earnings?></span>
                                 </h3>
                             </div>
                         </div>

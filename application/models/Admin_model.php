@@ -152,7 +152,6 @@ class Admin_model extends CI_Model {
             $chain[$i]['level']=$level;
             $i++;
             $parent=$this->getParent($parent);
-            if($i==5){break;}
         }
 
         // Loop through the chain to send commission up
@@ -193,5 +192,7 @@ class Admin_model extends CI_Model {
         }
     }
 
-    
+
+
+
 }
