@@ -474,6 +474,84 @@ class User extends CI_Controller {
             redirect(base_url().'Login');
         }
     }
+
+    public function change_password()
+    {
+        if($this->isLoggedin()){
+            $data['title']='Change Password';
+            if($_POST)
+            {
+                $config=array(
+                    array(
+                        'field' => 'old_password',
+                        'label' => 'Old Password',
+                        'rules' => 'trim|required|callback_checkPassword'
+                    ),
+                    array(
+                        'field' => 'password',
+                        'label' => 'Password',
+                        'rules' => 'trim|required'
+                    ),
+                    array(
+                        'field' => 'conf_password',
+                        'label' => 'Confirm Password',
+                        'rules' => 'trim|required|matches[password]'
+                    )
+                );
+                $this->form_validation->set_rules($config);
+                if ($this->form_validation->run() == false)
+                {
+                    // if validation has errors, save those errors in variable and send it to view
+                    $data['errors'] = validation_errors();
+                    $data['title']='Change Password';
+                    $this->load->view('user/static/head',$data);
+                    $this->load->view('user/static/header');
+                    $this->load->view('user/static/sidebar');
+                    $this->load->view('user/content/change_password');
+                    $this->load->view('user/static/footer');
+                }
+                else
+                {
+                    // if validation passes, check for user credentials from database
+                    $this->User_model->updatePassword($_POST['password'],$this->session->userdata['id']);
+                    $data['title']='Change Password';
+                    $data['success']='Congratulations! Password Changed';
+                    $this->load->view('user/static/head',$data);
+                    $this->load->view('user/static/header');
+                    $this->load->view('user/static/sidebar');
+                    $this->load->view('user/content/change_password');
+                    $this->load->view('user/static/footer');
+                }
+
+            }
+            else
+            {
+                $this->load->view('user/static/head',$data);
+                $this->load->view('user/static/header');
+                $this->load->view('user/static/sidebar');
+                $this->load->view('user/content/change_password');
+                $this->load->view('user/static/footer');
+            }
+        }
+        else
+        {
+            redirect(base_url().'Login');
+        }
+
+    }
+    public function checkPassword($str)
+    {
+        $check=$this->User_model->checkPassword($str);
+        if($check)
+        {
+            return true;
+        }
+        else
+        {
+            $this->form_validation->set_message('checkPassword', 'The Current Password you have provided is incorrect');
+            return false;
+        }
+    }
     ////////////////////////////////////
     ////    SECTION NETWORK ENDS     ///
     ////////////////////////////////////

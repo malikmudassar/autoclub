@@ -188,6 +188,30 @@ class User_model extends CI_Model {
         }
     }
 
+    public function checkPassword($str)
+    {
+        $st=$this->db->SELECT('*')->from('users')
+            ->WHERE('id',$this->session->userdata['id'])
+            ->WHERE('password',sha1(md5($str)))
+            ->get()->result_array();
+        if(count($st)>0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function updatePassword($password,$id)
+    {
+        $pass=array(
+            'password' => sha1(md5($password))
+        );
+        $this->db->WHERE('id',$id)->update('users',$pass);
+    }
+
 
 
 
