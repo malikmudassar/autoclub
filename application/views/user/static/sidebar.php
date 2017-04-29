@@ -18,7 +18,7 @@
                         <li class="sidenav-heading">Go to..</li>
                         <li class="sidenav-item has-subnav">
                             <a href="#" aria-haspopup="true">
-                                <span class="sidenav-icon icon icon-image"></span>
+                                <span class="sidenav-icon icon icon-user"></span>
                                 <span class="sidenav-label">My Profile</span>
                             </a>
 
@@ -51,16 +51,21 @@
 
                             </ul>
                         </li>
-                        <li class="sidenav-item has-subnav">
-                            <a href="#" aria-haspopup="true">
+                        <li class="sidenav-item ">
+                            <a href="<?php echo base_url().'user/earnings'?>" aria-haspopup="true">
                                 <span class="sidenav-icon icon icon-money"></span>
                                 <span class="sidenav-label">My Earnings</span>
                             </a>
 
-                            <ul class="sidenav-subnav collapse">
-                                <li><a href="<?php echo base_url().'user/current_earnings'?>" >Current</a></li>
-                                <li><a href="<?php echo base_url().'user/previous_earnings'?>" >Previous </a></li>
+                        </li>
+                        <li class="sidenav-item has-subnav">
+                            <a href="#" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-wrench"></span>
+                                <span class="sidenav-label">My Account</span>
+                            </a>
 
+                            <ul class="sidenav-subnav collapse">
+                                <li><a href="<?php echo base_url().'user/change_password'?>" >Change Password</a></li>
                             </ul>
                         </li>
                     </ul>

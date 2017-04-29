@@ -3,7 +3,7 @@
     <div class="navbar navbar-default" style="">
         <div class="navbar-header"  >
             <a class="navbar-brand navbar-brand-center" href="<?php echo base_url().'admin'?>" style="color:#fff">
-                <strong>Hi! <?php echo $this->session->userdata['name']?></strong>
+                <strong>Hi! <?php $name=explode(' ',$this->session->userdata['name']); echo ucfirst($name[0]);?></strong>
             </a>
             <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#sidenav">
                 <span class="sr-only">Toggle navigation</span>
@@ -62,7 +62,7 @@
                         $controller=$this->uri->segment(1);
                         ?>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="<?php echo base_url().$controller.'/profile'?>">Profile</a></li>
+                            <li><a href="<?php echo base_url().$controller.'/picture'?>">Picture</a></li>
                             <li class="divider"></li>
                             <li><a href="#">Settings</a></li>
                             <li><a href="<?php echo base_url().$controller.'/logout'?>">Sign out</a></li>

@@ -392,10 +392,11 @@ class User extends CI_Controller {
         {
 
             $data['title']='Dashboard | Let you Join';
+            $data['referred_by']=$this->User_model->getReferredBy($this->session->userdata['id']);
             $this->load->view('user/static/head',$data);
             $this->load->view('user/static/header');
             $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/dashboard');
+            $this->load->view('user/content/referred_by');
             $this->load->view('user/static/footer');
         }
         else
@@ -407,12 +408,12 @@ class User extends CI_Controller {
     {
         if($this->isLoggedIn())
         {
-
+            $data['refers']=$this->User_model->getRefers($this->session->userdata['referal_id']);
             $data['title']='Dashboard | Let you Join';
             $this->load->view('user/static/head',$data);
             $this->load->view('user/static/header');
             $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/dashboard');
+            $this->load->view('user/content/refers');
             $this->load->view('user/static/footer');
         }
         else
@@ -426,10 +427,11 @@ class User extends CI_Controller {
         {
 
             $data['title']='Dashboard | Let you Join';
+            $data['updates']=array();
             $this->load->view('user/static/head',$data);
             $this->load->view('user/static/header');
             $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/dashboard');
+            $this->load->view('user/content/updates');
             $this->load->view('user/static/footer');
         }
         else
@@ -446,7 +448,25 @@ class User extends CI_Controller {
             $this->load->view('user/static/head',$data);
             $this->load->view('user/static/header');
             $this->load->view('user/static/sidebar');
-            $this->load->view('user/content/dashboard');
+            $this->load->view('user/content/network_id');
+            $this->load->view('user/static/footer');
+        }
+        else
+        {
+            redirect(base_url().'Login');
+        }
+    }
+
+    public function earnings()
+    {
+        if($this->isLoggedIn())
+        {
+            $data['earnings']=$this->User_model->getEarnings($this->session->userdata['id']);
+            $data['title']='Dashboard | Let you Join';
+            $this->load->view('user/static/head',$data);
+            $this->load->view('user/static/header');
+            $this->load->view('user/static/sidebar');
+            $this->load->view('user/content/earnings');
             $this->load->view('user/static/footer');
         }
         else

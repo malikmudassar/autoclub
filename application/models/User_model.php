@@ -169,6 +169,26 @@ class User_model extends CI_Model {
         return $row->value;
     }
 
+    public function getReferredBy($id)
+    {
+        $st=$this->db->select('*')->from('users')->WHERE('referal_id',$this->session->userdata['refer_id'])->get()->result_array();
+        return $st[0]['name'];
+    }
+
+    public function getRefers($id)
+    {
+        $st=$this->db->select('*')->from('users')->WHERE('refer_id',$id)->get()->result_array();
+        if(count($st)>0)
+        {
+            return $st;
+        }
+        else
+        {
+            return array();
+        }
+    }
+
+
 
 
 }
